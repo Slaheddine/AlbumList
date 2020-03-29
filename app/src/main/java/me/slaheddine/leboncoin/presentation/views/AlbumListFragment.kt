@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import me.slaheddine.leboncoin.R
 import me.slaheddine.leboncoin.presentation.viewmodels.AlbumViewModel
+import org.koin.android.ext.android.inject
 
 class AlbumListFragment : Fragment() {
 
@@ -16,7 +17,7 @@ class AlbumListFragment : Fragment() {
             AlbumListFragment()
     }
 
-    private lateinit var viewModel: AlbumViewModel
+    private val viewModel by inject<AlbumViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -25,8 +26,7 @@ class AlbumListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AlbumViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.loadAlbums();
     }
 
 }
