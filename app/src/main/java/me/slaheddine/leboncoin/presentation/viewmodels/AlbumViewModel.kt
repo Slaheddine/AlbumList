@@ -1,4 +1,4 @@
-package me.slaheddine.leboncoin.ui.main
+package me.slaheddine.leboncoin.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 

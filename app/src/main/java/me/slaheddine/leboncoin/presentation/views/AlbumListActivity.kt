@@ -1,8 +1,8 @@
-package me.slaheddine.leboncoin
+package me.slaheddine.leboncoin.presentation.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import me.slaheddine.leboncoin.ui.main.AlbumListFragment
+import me.slaheddine.leboncoin.R
 
 class AlbumListActivity : AppCompatActivity() {
 

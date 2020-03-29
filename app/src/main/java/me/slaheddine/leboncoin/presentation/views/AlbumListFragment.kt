@@ -1,4 +1,4 @@
-package me.slaheddine.leboncoin.ui.main
+package me.slaheddine.leboncoin.presentation.views
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import me.slaheddine.leboncoin.R
+import me.slaheddine.leboncoin.presentation.viewmodels.AlbumViewModel
 
 class AlbumListFragment : Fragment() {
 
     companion object {
-        fun newInstance() = AlbumListFragment()
+        fun newInstance() =
+            AlbumListFragment()
     }
 
     private lateinit var viewModel: AlbumViewModel
