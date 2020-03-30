@@ -4,15 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import me.slaheddine.domain.models.Album
 import me.slaheddine.domain.usecases.GetAlbumsUseCase
-import me.slaheddine.domain.usecases.UseCaseCallBack
 import me.slaheddine.leboncoin.presentation.mapper.AlbumMapper
 import me.slaheddine.leboncoin.presentation.models.AlbumItem
 import me.slaheddine.leboncoin.presentation.utils.DataResponse
 import me.slaheddine.leboncoin.presentation.utils.Failure
 import me.slaheddine.leboncoin.presentation.utils.Loading
 import me.slaheddine.leboncoin.presentation.utils.Success
+import java.lang.Exception
 
 class AlbumViewModel(var getAlbumUseCase : GetAlbumsUseCase, var mapper : AlbumMapper) : ViewModel() {
 
@@ -25,9 +24,17 @@ class AlbumViewModel(var getAlbumUseCase : GetAlbumsUseCase, var mapper : AlbumM
         albumListLiveData.postValue(Loading(true))
 
         viewModelScope.launch {
-            val result = getAlbumUseCase.invoke(Unit)
-            albumList = mapper.transform(result);
-            albumListLiveData.postValue(Success(albumList.subList(0, PAGE_SIZE)))
+
+            try {
+                val result = getAlbumUseCase.invoke(Unit)
+                if(!result.isNullOrEmpty()) {
+                    albumList = mapper.transform(result);
+                    albumListLiveData.postValue(Success(albumList.subList(0, PAGE_SIZE)))
+                }
+            }
+            catch (e : Exception) {
+                albumListLiveData.postValue(Failure(e))
+            }
         }
     }
 

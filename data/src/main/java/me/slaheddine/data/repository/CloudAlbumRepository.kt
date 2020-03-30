@@ -1,6 +1,4 @@
 package me.slaheddine.data.repository
-
-import io.reactivex.Observable
 import me.slaheddine.data.mapper.AlbumDataMapper
 
 import me.slaheddine.data.network.AlbumsRestApi
