@@ -7,20 +7,26 @@ import me.slaheddine.domain.usecases.GetAlbumsUseCase
 import me.slaheddine.domain.usecases.UseCaseCallBack
 import me.slaheddine.leboncoin.presentation.mapper.AlbumMapper
 import me.slaheddine.leboncoin.presentation.models.AlbumItem
+import me.slaheddine.leboncoin.presentation.utils.DataResponse
+import me.slaheddine.leboncoin.presentation.utils.Failure
+import me.slaheddine.leboncoin.presentation.utils.Loading
+import me.slaheddine.leboncoin.presentation.utils.Success
 
 class AlbumViewModel(var getAlbumUseCase : GetAlbumsUseCase, var mapper : AlbumMapper) : ViewModel() {
 
-    val albumListLiveData: MutableLiveData<List<AlbumItem>> = MutableLiveData()
-    val failure : MutableLiveData<Unit> = MutableLiveData()
+    val albumListLiveData: MutableLiveData<DataResponse<List<AlbumItem>>> = MutableLiveData()
 
     fun loadAlbums() {
-        getAlbumUseCase.execute(0, object: UseCaseCallBack<List<Album>> {
+
+        albumListLiveData.postValue(Loading(true))
+
+        getAlbumUseCase.execute(Unit, object: UseCaseCallBack<List<Album>> {
             override fun onSuccess(it: List<Album>) {
-                albumListLiveData.value = mapper.transform(it)
+                albumListLiveData.postValue(Success(mapper.transform(it)))
             }
 
             override fun onFailure(error: Throwable) {
-                failure.value = Unit;
+                albumListLiveData.postValue(Failure(error))
             }
         })
     }

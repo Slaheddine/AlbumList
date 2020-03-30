@@ -13,6 +13,10 @@ import me.slaheddine.leboncoin.R
 import me.slaheddine.leboncoin.presentation.adapter.AlbumsRecyclerAdapter
 import me.slaheddine.leboncoin.presentation.adapter.OnItemClickListener
 import me.slaheddine.leboncoin.presentation.models.AlbumItem
+import me.slaheddine.leboncoin.presentation.utils.DataResponse
+import me.slaheddine.leboncoin.presentation.utils.Failure
+import me.slaheddine.leboncoin.presentation.utils.Loading
+import me.slaheddine.leboncoin.presentation.utils.Success
 import me.slaheddine.leboncoin.presentation.viewmodels.AlbumViewModel
 import org.koin.android.ext.android.inject
 
@@ -41,15 +45,9 @@ class AlbumListFragment : Fragment() {
 
         initRecycleView()
 
-        viewModel.albumListLiveData.observe(viewLifecycleOwner, Observer { result : List<AlbumItem> ->
+        viewModel.albumListLiveData.observe(viewLifecycleOwner, Observer { result : DataResponse<List<AlbumItem>> ->
             manageDataResponse(result)
         })
-
-        viewModel.failure.observe(viewLifecycleOwner, Observer { result : Unit ->
-            manageFailureResponse()
-        })
-
-        progressBar.visibility = View.VISIBLE
     }
 
     fun initRecycleView() {
@@ -71,13 +69,20 @@ class AlbumListFragment : Fragment() {
         albumsRecyclerView.addItemDecoration(dividerItemDecoration)
     }
 
-    fun manageDataResponse(stations  : List<AlbumItem>) {
-        progressBar.visibility = View.GONE
-        albumListAdapter.addAlbumssList(stations)
-    }
+    fun manageDataResponse(response  : DataResponse<List<AlbumItem>>) {
 
-    fun manageFailureResponse() {
-        progressBar.visibility = View.GONE
+        when(response) {
+            is Success -> {
+                progressBar.visibility = View.GONE
+                albumListAdapter.addAlbumssList(response.data)
+            }
+            is Loading -> {
+                progressBar.visibility = View.VISIBLE
+            }
+            is Failure -> {
+                progressBar.visibility = View.GONE
+            }
+        }
     }
 
 }
