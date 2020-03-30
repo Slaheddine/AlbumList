@@ -8,9 +8,9 @@ import me.slaheddine.leboncoin.presentation.models.AlbumItem
 
 class GetAlbumsUseCase (
     private val albumRepo: CloudAlbumRepository,
-    private val mapper : AlbumMapper ) : UseCase<Void, List<AlbumItem>>() {
+    private val mapper : AlbumMapper ) : UseCase<Int, List<AlbumItem>>() {
 
-    override fun execute(x: Void, callBack: UseCaseCallBack<List<AlbumItem>>) {
+    override fun execute(x: Int, callBack: UseCaseCallBack<List<AlbumItem>>) {
 
         var observable = albumRepo.getAlbums();
         var result = observable.subscribeOn(Schedulers.io())
