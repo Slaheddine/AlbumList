@@ -12,7 +12,7 @@ import org.koin.dsl.module
 val appModules = module {
 
     single {
-        AlbumsRestApi()
+        AlbumsRestApi(get())
     }
 
     single {
