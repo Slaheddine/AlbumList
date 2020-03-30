@@ -10,13 +10,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class AlbumsRestApi constructor() {
 
-    val service: RestApi
+    private val service: RestApi
 
     init {
         service = createWebService<RestApi>(BuildConfig.BASE_URL)
     }
 
-    inline fun <reified T> createWebService(baseUrl: String): T {
+    private inline fun <reified T> createWebService(baseUrl: String): T {
 
         val httpClient = OkHttpClient.Builder()
 
@@ -30,5 +30,9 @@ class AlbumsRestApi constructor() {
         var service = retrofit.create(T::class.java)
 
         return  service;
+    }
+
+    fun getService() : RestApi {
+        return service;
     }
 }
