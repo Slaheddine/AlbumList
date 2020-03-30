@@ -7,7 +7,7 @@ import me.slaheddine.leboncoin.domain.models.Album
 import me.slaheddine.leboncoin.domain.repository.AlbumsRepository
 
 
-class CloudAlbumRepository(var albumsRestApi : AlbumsRestApi, var mapper : AlbumDataMapper) : AlbumsRepository {
+class CloudAlbumRepository(private var albumsRestApi : AlbumsRestApi, private var mapper : AlbumDataMapper) : AlbumsRepository {
 
     override fun getAlbums(): Observable<List<Album>> {
         return albumsRestApi.getService().getAlbums().map { mapper.transform(it) }
