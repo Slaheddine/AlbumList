@@ -43,4 +43,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxjava"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rxadapter"
+
+    //Mockito
+    testImplementation "org.mockito:mockito-core:$mockito"
+    androidTestImplementation "org.mockito:mockito-android:$mockito"
 }
