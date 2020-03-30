@@ -13,10 +13,7 @@ import me.slaheddine.leboncoin.R
 import me.slaheddine.leboncoin.presentation.adapter.AlbumsRecyclerAdapter
 import me.slaheddine.leboncoin.presentation.adapter.OnItemClickListener
 import me.slaheddine.leboncoin.presentation.models.AlbumItem
-import me.slaheddine.leboncoin.presentation.utils.DataResponse
-import me.slaheddine.leboncoin.presentation.utils.Failure
-import me.slaheddine.leboncoin.presentation.utils.Loading
-import me.slaheddine.leboncoin.presentation.utils.Success
+import me.slaheddine.leboncoin.presentation.utils.*
 import me.slaheddine.leboncoin.presentation.viewmodels.AlbumViewModel
 import org.koin.android.ext.android.inject
 
@@ -67,6 +64,10 @@ class AlbumListFragment : Fragment() {
         )
 
         albumsRecyclerView.addItemDecoration(dividerItemDecoration)
+
+        albumsRecyclerView.addLoadMoreListener {
+            viewModel.loadMore(albumListAdapter.itemCount)
+        }
     }
 
     fun manageDataResponse(response  : DataResponse<List<AlbumItem>>) {
