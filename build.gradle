@@ -8,6 +8,7 @@ buildscript {
     ext.rxjava = '2.2.7'
     ext.rxandroid = '2.1.1'
     ext.rxadapter = '2.2.0'
+    ext.picasso = '2.71828'
 
     repositories {
         google()

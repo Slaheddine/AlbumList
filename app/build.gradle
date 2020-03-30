@@ -71,4 +71,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxjava"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rxadapter"
+
+    //Picasso
+    implementation "com.squareup.picasso:picasso:$picasso"
 }

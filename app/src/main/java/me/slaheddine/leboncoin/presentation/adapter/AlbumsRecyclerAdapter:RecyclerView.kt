@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.album_item.view.*
 import me.slaheddine.leboncoin.R
 import me.slaheddine.leboncoin.presentation.models.AlbumItem
@@ -48,6 +49,8 @@ class AlbumRecycleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     fun bindView(albumItem: AlbumItem, onItemClickListener : OnItemClickListener) {
         itemView.title.text = albumItem.title
+        Picasso.get().load(albumItem.thumbnailUrl).into(itemView.image);
+
         itemView.setOnClickListener(View.OnClickListener {
             onItemClickListener.onItemClick(albumItem)
         })
