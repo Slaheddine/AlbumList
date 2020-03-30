@@ -6,7 +6,6 @@ import android.net.NetworkInfo
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class AlbumsRestApi constructor(private val context: Context, private val baseUrl: String) {
@@ -37,7 +36,6 @@ class AlbumsRestApi constructor(private val context: Context, private val baseUr
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
             .client(httpClient.build())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         var service = retrofit.create(T::class.java)

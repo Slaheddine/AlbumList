@@ -24,16 +24,11 @@ class AlbumViewModel(var getAlbumUseCase : GetAlbumsUseCase, var mapper : AlbumM
 
         albumListLiveData.postValue(Loading(true))
 
-        getAlbumUseCase.execute(Unit, object: UseCaseCallBack<List<Album>> {
-            override fun onSuccess(it: List<Album>) {
-                albumList = mapper.transform(it);
-                albumListLiveData.postValue(Success(albumList.subList(0, PAGE_SIZE)))
-            }
-
-            override fun onFailure(error: Throwable) {
-                albumListLiveData.postValue(Failure(error))
-            }
-        })
+        viewModelScope.launch {
+            val result = getAlbumUseCase.invoke(Unit)
+            albumList = mapper.transform(result);
+            albumListLiveData.postValue(Success(albumList.subList(0, PAGE_SIZE)))
+        }
     }
 
     fun loadMore(lastIndex : Int) {

@@ -10,6 +10,10 @@ buildscript {
     ext.rxadapter = '2.2.0'
     ext.picasso = '2.71828'
     ext.mockito = '2.7.22'
+    ext.coroutines = '1.2.1'
+    ext.lifeCycle = '2.2.0'
+
+
 
     repositories {
         google()

@@ -6,5 +6,5 @@ interface UseCaseCallBack<T> {
 }
 
 abstract class UseCase<X,T> {
-    abstract fun execute(x:X, callBack: UseCaseCallBack<T>)
+    abstract suspend operator fun invoke(x:X) : T
 }

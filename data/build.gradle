@@ -39,10 +39,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_gson_converter"
 
-    //RX
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rxadapter"
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
 
     //Mockito
     testImplementation "org.mockito:mockito-core:$mockito"
