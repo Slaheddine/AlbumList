@@ -37,6 +37,8 @@ android {
 }
 
 dependencies {
+    implementation project(':domain')
+    implementation project(':data')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -47,10 +49,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-    //RETROFIT
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_gson_converter"
 
     // recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
@@ -66,11 +64,6 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     // Koin AndroidX Experimental features
     implementation "org.koin:koin-androidx-ext:$koin_version"
-
-    //RX
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rxadapter"
 
     //Picasso
     implementation "com.squareup.picasso:picasso:$picasso"

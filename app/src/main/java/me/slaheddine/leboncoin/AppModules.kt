@@ -1,10 +1,11 @@
 package me.slaheddine.leboncoin
 
-import me.slaheddine.leboncoin.data.mapper.AlbumDataMapper
-import me.slaheddine.leboncoin.data.network.AlbumsRestApi
-import me.slaheddine.leboncoin.data.repository.CloudAlbumRepository
-import me.slaheddine.leboncoin.domain.mapper.AlbumMapper
-import me.slaheddine.leboncoin.domain.usecases.GetAlbumsUseCase
+import me.slaheddine.data.network.AlbumsRestApi
+import me.slaheddine.data.repository.CloudAlbumRepository
+import me.slaheddine.data.mapper.AlbumDataMapper
+import me.slaheddine.domain.repository.AlbumsRepository
+import me.slaheddine.domain.usecases.GetAlbumsUseCase
+import me.slaheddine.leboncoin.presentation.mapper.AlbumMapper
 import me.slaheddine.leboncoin.presentation.viewmodels.AlbumViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -12,7 +13,7 @@ import org.koin.dsl.module
 val appModules = module {
 
     single {
-        AlbumsRestApi(get())
+        AlbumsRestApi(get(), BuildConfig.BASE_URL)
     }
 
     single {
@@ -24,14 +25,16 @@ val appModules = module {
     }
 
     single {
-        CloudAlbumRepository(get(), get())
+        CloudAlbumRepository(get(), get()) as AlbumsRepository
     }
 
     single {
-        GetAlbumsUseCase(get(), get())
+        GetAlbumsUseCase(get())
     }
 
-    viewModel { AlbumViewModel(get()) }
+    viewModel {
+        AlbumViewModel(get(), get())
+    }
 
 }
 
