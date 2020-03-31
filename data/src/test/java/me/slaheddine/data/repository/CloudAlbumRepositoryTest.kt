@@ -7,7 +7,9 @@ import junit.framework.Assert
 import kotlinx.coroutines.runBlocking
 import me.slaheddine.data.MockData
 import me.slaheddine.data.mapper.AlbumDataMapper
+import me.slaheddine.data.models.AlbumData
 import me.slaheddine.data.network.AlbumsRestApi
+import me.slaheddine.data.network.RestApi
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,51 +24,37 @@ import org.mockito.runners.MockitoJUnitRunner
 class CloudAlbumRepositoryTest {
 
     private lateinit var cloudAlbumRepository : CloudAlbumRepository
-    private lateinit var albumsRestApi : AlbumsRestApi
 
     @Mock
-    private lateinit var mockContext: Context
+    private lateinit var albumsRestApi : RestApi
 
     @Mock
     private lateinit var albumDataMapper: AlbumDataMapper
 
-    @Mock
-    private lateinit var connectivityManager : ConnectivityManager
-
-    @Mock
-    private lateinit var networkInfo : NetworkInfo
-
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this);
-        albumsRestApi = AlbumsRestApi(mockContext, "https://static.leboncoin.fr/");
         cloudAlbumRepository = CloudAlbumRepository(albumsRestApi, albumDataMapper)
     }
 
     @Test
-    fun readStringFromContext_LocalizedString() {
+    fun cloudAlbumRepository_getAlbums_returnSuccess() {
 
-        val lstAlbums = arrayListOf(MockData().album1, MockData().album1, MockData().album3, MockData().album4)
+        val lstAlbums = arrayListOf(MockData().albumData1, MockData().albumData1, MockData().albumData1, MockData().albumData1)
         runBlocking {
 
-            `when`(mockContext.getSystemService(Context.CONNECTIVITY_SERVICE)).thenAnswer { return@thenAnswer connectivityManager }
-            `when`(connectivityManager.activeNetworkInfo).thenAnswer { return@thenAnswer networkInfo}
-            `when`(networkInfo.isConnected).thenAnswer { return@thenAnswer true}
-            `when`(albumsRestApi.getService().getAlbums()).thenAnswer { return@thenAnswer lstAlbums }
-             Assert.assertTrue(cloudAlbumRepository.getAlbums().size == 2)
+            `when`(albumsRestApi.getAlbums()).thenAnswer { return@thenAnswer lstAlbums }
+             Assert.assertTrue(cloudAlbumRepository.getAlbums().size == 4)
+        }
+    }
 
+    @Test
+    fun cloudAlbumRepository_getAlbums_returnEmpty() {
 
-            /*
-            val context = Mockito.mock(Context::class.java)
-            val connManager = Mockito.mock(ConnectivityManager::class.java)
-            val networkInfo = Mockito.mock(NetworkInfo::class.java)
+        runBlocking {
 
-            `when`(context.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(connManager)
-            `when`(connManager.activeNetworkInfo).thenReturn(networkInfo)
-            `when`(networkInfo.isConnected).thenReturn(true)
-
-            Assert.assertTrue(cloudAlbumRepository.getAlbums().size == 2)
-             */
+            `when`(albumsRestApi.getAlbums()).thenAnswer { return@thenAnswer emptyList<AlbumData>() }
+            Assert.assertTrue(cloudAlbumRepository.getAlbums().isEmpty())
         }
 
     }

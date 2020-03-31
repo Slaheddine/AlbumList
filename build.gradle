@@ -9,7 +9,7 @@ buildscript {
     ext.rxandroid = '2.1.1'
     ext.rxadapter = '2.2.0'
     ext.picasso = '2.71828'
-    ext.mockito = '2.13.0'
+    ext.mockito = '2.23.0'
     ext.coroutines = '1.2.1'
     ext.lifeCycle = '2.2.0'
 

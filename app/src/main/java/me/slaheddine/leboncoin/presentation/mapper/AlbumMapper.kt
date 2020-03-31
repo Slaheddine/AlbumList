@@ -5,26 +5,24 @@ import me.slaheddine.leboncoin.presentation.models.AlbumItem
 
 class AlbumMapper constructor() {
 
-    fun transform(data: Album?): AlbumItem? {
-        if (data != null) {
-            return AlbumItem(
+    fun transform(data: Album): AlbumItem {
+
+        return AlbumItem(
                 data.albumId,
                 data.id,
                 data.thumbnailUrl,
                 data.title,
                 data.url
             )
-        }
-        return null
     }
 
-    fun transform(list : List<Album>?) : List<AlbumItem> {
+    fun transform(list : List<Album>) : List<AlbumItem> {
         val result : MutableList<AlbumItem> = ArrayList()
         if (list != null) {
-            for (movieEntity : Album in list) {
-                var station = transform(movieEntity)
-                if (station!=null) {
-                    result.add(station)
+            for (enity : Album in list) {
+                var albumsItem = transform(enity)
+                if (albumsItem!=null) {
+                    result.add(albumsItem)
                 }
             }
         }

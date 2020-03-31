@@ -15,7 +15,7 @@ class CloudAlbumRepository(private var albumsRestApi : RestApi, private var mapp
         val listAlbum : MutableList<Album> = mutableListOf<Album>()
 
          albumsRestApi.getAlbums().forEach {
-             mapper.transform(it)?.let { it1 -> listAlbum.add(it1) }
+             listAlbum.add(mapper.transform(it))
         }
 
         return listAlbum
