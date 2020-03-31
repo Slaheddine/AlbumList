@@ -8,51 +8,43 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class AlbumsRestApi constructor(private val context: Context, private val baseUrl: String) {
+class AlbumsRestApi {
 
-    private val service: RestApi
+    companion object {
+        fun createWebService(context: Context, baseUrl: String): RestApi {
 
-    init {
-        service = createWebService<RestApi>(baseUrl)
-    }
+            val cacheSize = (5 * 1024 * 1024).toLong()
+            val myCache = Cache(context.cacheDir, cacheSize)
 
-    private inline fun <reified T> createWebService(baseUrl: String): T {
+            val httpClient = OkHttpClient.Builder()
+                .cache(myCache)
+                .addInterceptor { chain ->
+                    var request = chain.request()
+                    request = if (hasNetwork(context)!!)
+                        request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
+                    else
+                        request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build()
+                    chain.proceed(request)
+                }
 
-        val cacheSize = (5 * 1024 * 1024).toLong()
-        val myCache = Cache(context.cacheDir, cacheSize)
+            val retrofit = Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(baseUrl)
+                .client(httpClient.build())
+                .build()
 
-        val httpClient = OkHttpClient.Builder()
-            .cache(myCache)
-            .addInterceptor { chain ->
-                var request = chain.request()
-                request = if (hasNetwork()!!)
-                    request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
-                else
-                    request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build()
-                chain.proceed(request)
-            }
+            var service = retrofit.create(RestApi::class.java)
 
-        val retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(baseUrl)
-            .client(httpClient.build())
-            .build()
+            return  service;
+        }
 
-        var service = retrofit.create(T::class.java)
-
-        return  service;
-    }
-
-    fun getService() : RestApi {
-        return service;
-    }
-
-    fun hasNetwork(): Boolean? {
-        var isConnected: Boolean? = false // Initial Value
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
-        if (activeNetwork != null && activeNetwork.isConnected)
-            isConnected = true
-        return isConnected
+        private fun hasNetwork(context: Context): Boolean? {
+            var isConnected: Boolean? = false // Initial Value
+            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+            if (activeNetwork != null && activeNetwork.isConnected)
+                isConnected = true
+            return isConnected
+        }
     }
 }

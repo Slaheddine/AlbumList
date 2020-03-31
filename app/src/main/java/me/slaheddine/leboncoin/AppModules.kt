@@ -13,7 +13,7 @@ import org.koin.dsl.module
 val appModules = module {
 
     single {
-        AlbumsRestApi(get(), BuildConfig.BASE_URL)
+        AlbumsRestApi.createWebService(get(), BuildConfig.BASE_URL)
     }
 
     single {
