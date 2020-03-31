@@ -46,4 +46,5 @@ dependencies {
     //Mockito
     testImplementation "org.mockito:mockito-core:$mockito"
     androidTestImplementation "org.mockito:mockito-android:$mockito"
+    testImplementation "org.mockito:mockito-inline:$mockito"
 }

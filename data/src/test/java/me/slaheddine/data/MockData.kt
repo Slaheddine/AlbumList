@@ -47,5 +47,19 @@ class  MockData {
         "ttitle3",
         "https://domain.com/url4"
     )
+    val album3 = Album(
+        4,
+        13,
+        "https://domain.com/img3.jpg",
+        "ttitle3",
+        "https://domain.com/url4"
+    )
+    val album4 = Album(
+        4,
+        13,
+        "https://domain.com/img3.jpg",
+        "ttitle3",
+        "https://domain.com/url4"
+    )
 }
 
