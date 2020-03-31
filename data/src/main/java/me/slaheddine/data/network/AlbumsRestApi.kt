@@ -25,7 +25,7 @@ class AlbumsRestApi constructor(private val context: Context, private val baseUr
             .cache(myCache)
             .addInterceptor { chain ->
                 var request = chain.request()
-                request = if (hasNetwork()!!)
+                request = if (true)
                     request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
                 else
                     request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build()
