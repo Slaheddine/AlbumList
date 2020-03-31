@@ -19,8 +19,8 @@ class AlbumMapper constructor() {
     fun transform(list : List<Album>) : List<AlbumItem> {
         val result : MutableList<AlbumItem> = ArrayList()
         if (list != null) {
-            for (enity : Album in list) {
-                var albumsItem = transform(enity)
+            for (entity : Album in list) {
+                var albumsItem = transform(entity)
                 if (albumsItem!=null) {
                     result.add(albumsItem)
                 }

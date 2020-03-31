@@ -75,7 +75,7 @@ class AlbumListFragment : Fragment() {
         when(response) {
             is Success -> {
                 progressBar.visibility = View.GONE
-                albumListAdapter.addAlbumssList(response.data)
+                albumListAdapter.addAlbumsList(response.data)
             }
             is Loading -> {
                 progressBar.visibility = View.VISIBLE

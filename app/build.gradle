@@ -4,15 +4,15 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion rootProject.ext.compileSdk
 
 
     defaultConfig {
         applicationId "me.slaheddine.leboncoin"
-        minSdkVersion 15
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetVersion
+        versionCode rootProject.ext.codeVersion
+        versionName rootProject.ext.nameVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

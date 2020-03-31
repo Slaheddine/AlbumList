@@ -15,7 +15,7 @@ import java.lang.Exception
 
 class AlbumViewModel(var getAlbumUseCase : GetAlbumsUseCase, var mapper : AlbumMapper) : ViewModel() {
 
-    private var PAGE_SIZE = 20;
+    private final var PAGE_SIZE = 20;
     private lateinit var albumList: List<AlbumItem>
     val albumListLiveData: MutableLiveData<DataResponse<List<AlbumItem>>> = MutableLiveData()
 

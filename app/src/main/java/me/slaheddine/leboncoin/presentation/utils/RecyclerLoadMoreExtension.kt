@@ -13,8 +13,7 @@ fun RecyclerView.addLoadMoreListener(loadMore: () -> Unit) {
             super.onScrolled(recyclerView, dx, dy)
 
             if (dy <= 0) return
-
-
+            
             val lastVisibleItem =
                 (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 

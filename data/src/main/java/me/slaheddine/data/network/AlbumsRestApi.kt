@@ -33,9 +33,7 @@ class AlbumsRestApi {
                 .client(httpClient.build())
                 .build()
 
-            var service = retrofit.create(RestApi::class.java)
-
-            return  service;
+            return retrofit.create(RestApi::class.java)
         }
 
         private fun hasNetwork(context: Context): Boolean? {

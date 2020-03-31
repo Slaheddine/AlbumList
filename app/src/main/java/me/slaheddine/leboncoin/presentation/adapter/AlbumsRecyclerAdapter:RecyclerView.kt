@@ -30,7 +30,7 @@ class AlbumsRecyclerAdapter(private val onItemClickListener: OnItemClickListener
         albumViewHolder.bindView(listOfAlbums[position], onItemClickListener)
     }
 
-    fun addAlbumssList(newList: List<AlbumItem>?) {
+    fun addAlbumsList(newList: List<AlbumItem>?) {
         if ((newList!=null)&&(newList?.size > 0)) {
             var oldSize = listOfAlbums.size
             listOfAlbums.addAll(newList)
